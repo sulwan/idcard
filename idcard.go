@@ -72,9 +72,8 @@ func constellation(id string) string {
 	}
 	if month >= 0 {
 		return constellation[month]
-	} else {
-		return constellation[11]
 	}
+	return constellation[11]
 }
 
 // 获取月
