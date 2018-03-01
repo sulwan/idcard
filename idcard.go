@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 )
 
 var IdcardMap map[string]string
@@ -86,9 +87,27 @@ func day(id string) string {
 	return id[12:14]
 }
 
+// 获取年龄
+func Age(id string) int {
+	nowTime := time.Now().Unix()
+	birthday := Year(id) + "-" + month(id) + "-" + day(id)
+	formatTime, err := time.Parse("2006-01-02", birthday)
+	var nowAge int
+	if err == nil {
+		olaTime := int(formatTime.Unix())
+		nowAge = (int(nowTime) - olaTime) / 31536000
+	} else {
+		panic(err)
+	}
+
+	return nowAge
+}
+
 func main() {
 	fmt.Println("身份证所在地:" + Address("130431199402181323"))
 	fmt.Println("性别:" + Sex("130431199402181323"))
 	fmt.Println("所属动物:" + Zodiac("130431199402181323"))
 	fmt.Println("所属星座:" + constellation("130121199409180025"))
+	Age := strconv.Itoa(Age("130121199409180025"))
+	fmt.Println("年龄:" + Age)
 }
